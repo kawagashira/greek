@@ -20,10 +20,8 @@ def parse_xml(i_file):
             print ('enter l')
             n = get_new_n(n, child)
             w += [(child.text, n)]
-            print (w)
         if child.tag == 'q':    # quote
             w += extract_lines(n, child)
-    print (w)
     return w
 
 
@@ -31,9 +29,20 @@ def extract_lines(n, div):
 
     w = []
     for child in div:
-        if child.tag == 'l' and child.text is not None:
-            n = get_new_n(n, child)
-            w.append((child.text, n))
+        #print (child.tag, child.text, 'prev', n, child.attrib, len(child))
+        if child.tag == 'l':
+            if len(child) >=1:
+                if child[0].tag == 'milestone':
+                    y = child[0]
+                    print (y.tail, 'MILESTONE')
+                    text = y.tail
+            else:
+                text = child.text
+        if text is None:
+            continue
+        n = get_new_n(n, child)
+        print (text, n)
+        w.append((text, n))
     return w
 
 
