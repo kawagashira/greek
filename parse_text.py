@@ -2,6 +2,7 @@
 #
 #                               parse_text.py
 #
+#   Parsing classical greek text.
 
 import xml.etree.ElementTree as ET
 #from gensim.models import word2vec
